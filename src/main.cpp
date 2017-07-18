@@ -108,6 +108,7 @@ int main() {
           *
           */
 
+          // take latency in account
           px += v * cos(psi) * latency;
           py += v * sin(psi) * latency;
           psi -= v * delta / Lf * latency;
