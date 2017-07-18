@@ -36,14 +36,9 @@ To handle this our vehicle coordinations, orientation and speed were calculated 
  * psi -= v * delta / Lf * latency;
  * v += a * latency;
 
-To account for this latency the car's state was estimated after the latency time before being evaluated by the MPC.
-This resulted in the controller providing actuation command for a future time aligned with the latency.
-This was done on lines 109-116 of main.cpp.
-The same kinematic model was used for this prediction as is used in the MPC.
-
 
 ## Result
-The following output was obtained with: `N = 12, dt = 0.1, ref_v = 50, latency = 0.1 //100ms`
+The following output was obtained with: `N = 12, dt = 0.1, ref_v = 50, latency = 0.1`:
 
 ![image1]
 
