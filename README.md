@@ -8,8 +8,10 @@
 Model Predictive Controller uses a Kinematic model that emulates the vehicle controls dynamics as closely as possible.
 The state, actuators and update equations are described below:
 
- * State is given by: { px position, py position, orientation (psi), speed (v), cross track error (cte), orientation error (epsi)}
- * Actuators: { steering angle (delta), acceleration (a)}
+ * State is given by:
+   * { px position, py position, orientation (psi), speed (v), cross track error (cte), orientation error (epsi)}
+ * Actuators:
+   * { steering angle (delta), acceleration (a)}
  * Prediction equations:
    * x1 = x0 + v0 * cos(psi0) * dt
    * y1 = y0 + v0 * sin(psi0) * dt
