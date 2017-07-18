@@ -1,5 +1,9 @@
 # Self-Driving Car Engineer Nanodegree Program
 
+[//]: # (Image/Video References)
+
+[image1]: ./output/P5.gif "N = 12, dt = 0.1, ref_v = 50"
+
 ## The model
 Model Predictive Controller uses a Kinematic model that emulates the vehicle controls dynamics as closely as possible.
 The state, actuators and update equations are described below:
@@ -38,6 +42,12 @@ This was done on lines 109-116 of main.cpp.
 The same kinematic model was used for this prediction as is used in the MPC.
 
 
+## Result
+The following output was obtained with: `N = 12, dt = 0.1, ref_v = 50, latency = 0.1 //100ms`
+
+![image1]
+
+Here's a [link to my video result](./output/P5.mov) (mov).
 
 ## Dependencies
 
