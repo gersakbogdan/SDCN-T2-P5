@@ -1,12 +1,42 @@
 # Self-Driving Car Engineer Nanodegree Program
 
 ## The model
+Model Predictive Controller uses a Kinematic model that emulates the vehicle controls dynamics as closely as possible.
+The state, actuators and update equations are described below:
+
+ * State is given by: { px position, py position, orientation (psi), speed (v), cross track error (cte), orientation error (epsi)}
+ * Actuators: { steering angle (delta), acceleration (a)}
+ * Prediction equations:
+   * x1 = x0 + v0 * cos(psi0) * dt
+   * y1 = y0 + v0 * sin(psi0) * dt
+   * psi1 = psi0 + v0 / Lf * delta0 * dt
+   * v1 = v0 + a0 * dt
 
 ## Timestep Length and Elapsed Duration (N & dt)
+First I started with the values used in the lesson,  `N = 25, dt = 0.05` but the vehicle was unstable and went off of track at the first turn.
+Next I changed the reference speed to 50 mph and started to play with different values for `N` and `dt`.
+After a few tries I saw that vehicle is quite stable for values of `N` which were between `10 - 12` and `dt = 0.1`
+Using a reference speed of 80 mph the model performed with the following values: `N = 12, dt = 0.1` and this were the values I choosed to use in the end.
 
 ## Polynomial Fitting and MPC Preprocessing
+Because `ptsx` and `ptsy` provieded by the simulator were in map coordinate, in order to use the values in our model
+I had to tranform the points into vehicle coordinates using the following equations:
+ * wptsx[i] = x_trans * cos(-psi) - y_trans * sin(-psi);
+ * wptsy[i] = x_trans * sin(-psi) + y_trans * cos(-psi);
 
 ## Model Predictive Control with Latency
+In order to test our model like on a real vehicle, where latency between the actuation command and the physical actuation exists, `latency` value was set up as `100ms`.
+To handle this our vehicle coordinations, orientation and speed were calculated using the following equations:
+ * px += v * cos(psi) * latency;
+ * py += v * sin(psi) * latency;
+ * psi -= v * delta / Lf * latency;
+ * v += a * latency;
+
+To account for this latency the car's state was estimated after the latency time before being evaluated by the MPC.
+This resulted in the controller providing actuation command for a future time aligned with the latency.
+This was done on lines 109-116 of main.cpp.
+The same kinematic model was used for this prediction as is used in the MPC.
+
 
 
 ## Dependencies

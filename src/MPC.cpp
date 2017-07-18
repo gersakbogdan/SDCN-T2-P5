@@ -1,14 +1,12 @@
 #include "MPC.h"
-// #include <math.h>
 #include <cppad/cppad.hpp>
 #include <cppad/ipopt/solve.hpp>
 #include "Eigen-3.3/Eigen/Core"
-// #include "Eigen-3.3/Eigen/QR"
 
 using CppAD::AD;
 
 // TODO: Set the timestep length and duration
-size_t N = 15;
+size_t N = 12;
 double dt = 0.1;
 
 // This value assumes the model presented in the classroom is used.
@@ -24,7 +22,7 @@ double dt = 0.1;
 const double Lf = 2.67;
 
 // Both the reference cross track and orientation errors are 0.
-// The reference velocity is set to 80 mph.
+// The reference velocity is set to 50 mph.
 double ref_v = 50;
 
 // The solver takes all the state variables and actuator
@@ -52,9 +50,9 @@ class FG_eval {
   void operator()(ADvector& fg, const ADvector& vars) {
 
     // Weights for the cost function
+    double w_v      = 10;
     double w_cte    = 5000;
     double w_epsi   = 5000;
-    double w_v      = 10;
     double w_delta  = 100;
     double w_a      = 10;
     double w_delta2 = 100;
